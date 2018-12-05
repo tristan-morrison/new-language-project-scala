@@ -1,2 +1,5 @@
 run
 exit
+run
+git add --all
+exit

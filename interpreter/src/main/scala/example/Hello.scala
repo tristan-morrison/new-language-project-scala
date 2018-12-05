@@ -3,7 +3,7 @@ package example
 import scala.collection.mutable.ArrayBuffer;
 
 object InterpreterRunner extends App {
-  val testExpr = "(+ (- 2 5) (- 34 (+ 2 3)))"
+  val testExpr = "(* (* 2 5) (* 34 (* 2 3)))"
   var subExprs = ArrayBuffer("")
   var currentExpr = 1
 
@@ -30,31 +30,20 @@ object InterpreterRunner extends App {
 
   def eval(expr: String) : String = {
     var exprCopy: String = expr
-    exprCopy.filterNot("()".toSet)
+    exprCopy = exprCopy.filterNot("()".toSet)
     var exprArr = exprCopy.split(" ")
 
-    
+    println(exprArr(0))
+
+    exprArr(0) match {
+      case "*" => {
+        val result = exprArr(1).toInt * exprArr(2).toInt
+        result.toString
+      }
+    }
   }
 
-  //
-  // def interpreter(expr: String) : String = {
-  //   var pos:Int = -1
-  //   var exprCopy: String = ""
-  //   var parenIndx = ArrayBuffer.empty[Int]
-  //
-  //   for (char <- expr) {
-  //     pos += 1
-  //     exprCopy += char
-  //     println(exprCopy)
-  //     if (char.equals('(')) {
-  //       parenIndx += pos
-  //     }
-  //   }
-  //
-  //   parenIndx.foreach(println)
-  //   return "Hi"
-  // }
-
   println(parse(testExpr))
+  // println(eval("(* 2 3)"))
 
 }
