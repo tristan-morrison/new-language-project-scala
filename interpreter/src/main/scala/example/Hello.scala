@@ -3,7 +3,7 @@ package example
 import scala.collection.mutable.ArrayBuffer;
 
 object InterpreterRunner extends App {
-  val testExpr = "(+ 2 (if #f 2 3))"
+  val testExpr = "(+ 2 (if (= 2 3) 2 3))"
   var subExprs = ArrayBuffer("")
   var currentExpr = 1
 
@@ -43,6 +43,13 @@ object InterpreterRunner extends App {
       case "+" => {
         val result = exprArr(1).toInt + exprArr(2).toInt
         result.toString
+      }
+      case "=" => {
+        if (exprArr(1) == exprArr(2)) {
+          return "#t"
+        } else {
+          return "#f"
+        }
       }
       case "if" => {
         if (exprArr(1).equals("#t")) {
