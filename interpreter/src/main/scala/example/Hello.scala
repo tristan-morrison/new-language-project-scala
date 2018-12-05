@@ -3,9 +3,35 @@ package example
 import scala.collection.mutable.ArrayBuffer;
 
 object InterpreterRunner extends App {
-  val testExpr = "(+ 2 (if (= 2 3) 2 3))"
+  val testExpr = "(+ (if #f 0 5) (* (- 5 3) 6))"
   var subExprs = ArrayBuffer("")
   var currentExpr = 1
+
+  def interpret(expr: String) : Int = {
+    var desugaredInput = desugarMinus(expr)
+    return parse(desugaredInput)
+  }
+
+  def desugarMinus(expr: String) : String = {
+    var exprCopy: String = expr
+
+    while (exprCopy.indexOf("(-") != -1) {
+      var exprFromMinus: String = exprCopy.substring(exprCopy.indexOf("(-"), (exprCopy.length()))
+      var exprEndMinusPos: Int = exprFromMinus.indexOf(")")
+      var exprToEval: String = exprFromMinus.substring(0, exprEndMinusPos+1)
+      var newString: String = exprToEval.replace('-', '+')
+
+      val indexOfLastSpace = newString.lastIndexOf(" ")
+      val (first, second) = newString.splitAt(indexOfLastSpace + 1)
+      newString = first + "-" + second
+      exprCopy = exprCopy.replace(exprToEval, newString)
+    }
+    return exprCopy
+  }
+
+
+
+  println(interpret(testExpr))
 
   def parse(expr: String) : Int = {
     for (char <- expr) {
@@ -19,13 +45,13 @@ object InterpreterRunner extends App {
         subExprs(currentExpr - 1) += eval(subExprs(currentExpr))
         subExprs.remove(currentExpr)
         currentExpr -= 1
-        println(subExprs(currentExpr))
+        // println(subExprs(currentExpr))
       } else {
         subExprs(currentExpr) += char
       }
     }
 
-    return 0
+    return subExprs(0).toInt
   }
 
   def eval(expr: String) : String = {
@@ -33,7 +59,7 @@ object InterpreterRunner extends App {
     exprCopy = exprCopy.filterNot("()".toSet)
     var exprArr = exprCopy.split(" ")
 
-    println(exprArr(0))
+    // println(exprArr(0))
 
     exprArr(0) match {
       case "*" => {
@@ -53,15 +79,15 @@ object InterpreterRunner extends App {
       }
       case "if" => {
         if (exprArr(1).equals("#t")) {
-          return exprArr(2)
+          return exprArr(2).toString
         } else {
-          return exprArr(3)
+          return exprArr(3).toString
         }
       }
     }
   }
 
-  println(parse(testExpr))
+  // println(parse(testExpr))
   // println(eval("(* 2 3)"))
 
 }

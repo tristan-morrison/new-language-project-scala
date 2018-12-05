@@ -1,6 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/tristanlopus/Google Drive/Programming Languages/new-language-project-scala/interpreter/src/main/scala/example/Hello.scala:37:12: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : Char('*')[0m
-[0m[[0m[31merror[0m] [0m[0m required: String[0m
-[0m[[0m[31merror[0m] [0m[0m      case '*' => {[0m
-[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/tristanlopus/Google Drive/Programming Languages/new-language-project-scala/interpreter/src/main/scala/example/Hello.scala:11:26: not found: value desugar[0m
+[0m[[0m[31merror[0m] [0m[0m    var desugaredInput = desugar(expr)[0m
+[0m[[0m[31merror[0m] [0m[0m                         ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

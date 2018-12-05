@@ -4,3 +4,4 @@ run
 git add --all
 exit
 run
+git status
