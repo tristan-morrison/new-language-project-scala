@@ -29,9 +29,11 @@ object InterpreterRunner extends App {
   }
 
   def eval(expr: String) : String = {
-    println("Eval was called!")
-    // return 0
-    return expr
+    var exprCopy: String = expr
+    exprCopy.filterNot("()".toSet)
+    var exprArr = exprCopy.split(" ")
+
+    
   }
 
   //
