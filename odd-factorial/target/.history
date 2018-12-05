@@ -1,0 +1,5 @@
+print("Hello, World!")
+println("Hello, World!")
+exit
+scala
+console
